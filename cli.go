@@ -9,7 +9,7 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-const timeFmt = "Monday, 2006-01-02 15:04:05 MST -0700"
+const timeFmt = "Mon, 2006-01-02 15:04:05 MST -0700"
 
 var flagUTC bool
 
