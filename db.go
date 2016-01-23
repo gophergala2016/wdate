@@ -44,7 +44,7 @@ func addLocation(name string, offset int) error {
 }
 
 func removeLocation(name string) error {
-	delete(locs, "name")
+	delete(locs, name)
 	f, err := os.Create(dbFile)
 	if err != nil {
 		return err
