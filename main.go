@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -9,6 +10,9 @@ import (
 	"github.com/codegangsta/cli"
 )
 
+const timeFmt = "Monday, 2006-01-02 15:04:05 MST -0700"
+
+var errInvalidOffset = errors.New("Invalid time offset format")
 var flagUTC bool
 
 func main() {
@@ -43,19 +47,19 @@ func main() {
 			Name:        "add",
 			Aliases:     []string{"a"},
 			Description: "This add a new timezone",
-			Action:      scAdd,
+			Action:      cmdAdd,
 		}, {
 			Name:        "remove",
 			Aliases:     []string{"r"},
 			Description: "This remove a timezone",
-			Action:      scRemove,
+			Action:      cmdRemove,
 		},
 	}
 
 	app.Run(os.Args)
 }
 
-func scAdd(c *cli.Context) {
+func cmdAdd(c *cli.Context) {
 	args := c.Args()
 	if len(args) < 2 {
 		fmt.Println("usage: add timezone_name timezone_offset")
@@ -71,7 +75,7 @@ func scAdd(c *cli.Context) {
 	addLocation(name, offset)
 }
 
-func scRemove(c *cli.Context) {
+func cmdRemove(c *cli.Context) {
 	args := c.Args()
 	if len(args) != 1 {
 		fmt.Println("usage: remove timezone_name")
