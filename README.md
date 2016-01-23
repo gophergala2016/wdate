@@ -31,6 +31,10 @@ Or **remove** timezone with name:
     Sat, 2016-01-23 02:35:05 PST -0800
 
 
+## Reference
+* [Time Zone Abbreviations – Worldwide List](http://www.timeanddate.com/time/zones/)
+
+
 ## License
 
 Copyright (c) 2016, Homin Lee.
