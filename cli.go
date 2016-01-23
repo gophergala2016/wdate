@@ -1,0 +1,49 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+	"time"
+
+	"github.com/mitchellh/cli"
+)
+
+const timeFmt = "Monday, 2006-01-02 15:04:05 MST -0700"
+
+var flagUTC bool
+
+func main() {
+	err := loadDB()
+	if err != nil {
+		fmt.Println("failed to load DB", err)
+		os.Exit(-1)
+	}
+
+	if len(os.Args) == 1 {
+		now := time.Now()
+		fmt.Println(now.Format(timeFmt))
+		for name, offset := range locs {
+			loc := time.FixedZone(name, offset)
+			fmt.Println(now.In(loc).Format(timeFmt))
+		}
+		os.Exit(0)
+	}
+
+	c := cli.NewCLI("wdate", "1.0")
+	c.Args = os.Args[1:]
+
+	fmt.Println("I'm on the main")
+
+	c.Commands = map[string]cli.CommandFactory{
+		"add":    addCommandFactory,
+		"remove": removeCommandFactory,
+	}
+
+	exitStatus, err := c.Run()
+	if err != nil {
+		log.Println(err)
+	}
+
+	os.Exit(exitStatus)
+}

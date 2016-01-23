@@ -1,0 +1,46 @@
+package main
+
+import (
+	"errors"
+	"log"
+
+	"github.com/mitchellh/cli"
+)
+
+var errInvalidOffset = errors.New("Invalid time offset format")
+
+type addCmd struct{}
+
+func (f addCmd) Synopsis() string {
+	return "add a timezone"
+}
+
+func (f addCmd) Help() string {
+	return "add a timezone in form of 'TZNAME +0700'"
+}
+
+func (f addCmd) Run(args []string) int {
+	if len(args) != 2 {
+		return -1
+	}
+	name := args[0]
+	offsetStr := args[1]
+	offset, err := timeOffsetStrToInt(offsetStr)
+	if err != nil {
+		log.Println("fail to convert offset:", err)
+		return -1
+	}
+
+	err = addLocation(name, offset)
+	if err != nil {
+		log.Println("fail to add location:", err)
+		return -1
+	}
+
+	return 0
+}
+
+var addCommandFactory = func() (cli.Command, error) {
+	var cmd addCmd
+	return cmd, nil
+}
