@@ -21,6 +21,7 @@ func (f addCmd) Help() string {
 
 func (f addCmd) Run(args []string) int {
 	if len(args) != 2 {
+		log.Println("fail to add a timezone")
 		return -1
 	}
 	name := args[0]

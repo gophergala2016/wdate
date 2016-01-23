@@ -32,9 +32,6 @@ func main() {
 
 	c := cli.NewCLI("wdate", "1.0")
 	c.Args = os.Args[1:]
-
-	fmt.Println("I'm on the main")
-
 	c.Commands = map[string]cli.CommandFactory{
 		"add":    addCommandFactory,
 		"remove": removeCommandFactory,

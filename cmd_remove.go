@@ -17,8 +17,8 @@ func (f removeCmd) Help() string {
 }
 
 func (f removeCmd) Run(args []string) int {
-	log.Println("Removeing...", args)
 	if len(args) != 1 {
+		log.Println("fail to remove. give a timezone name")
 		return -1
 	}
 
