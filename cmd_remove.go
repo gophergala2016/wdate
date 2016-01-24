@@ -17,15 +17,17 @@ func (f removeCmd) Help() string {
 }
 
 func (f removeCmd) Run(args []string) int {
-	if len(args) != 1 {
+	if len(args) < 1 {
 		log.Println("fail to remove. give a timezone name")
 		return -1
 	}
 
-	err := removeLocation(args[0])
-	if err != nil {
-		log.Println("fail to remove:", err)
-		return -1
+	for _, arg := range args {
+		err := removeLocation(arg)
+		if err != nil {
+			log.Println("fail to remove:", err)
+			return -1
+		}
 	}
 	return 0
 }
