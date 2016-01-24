@@ -22,6 +22,7 @@ func loadDB() error {
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
 	dec := gob.NewDecoder(f)
 	err = dec.Decode(&locs)
@@ -37,6 +38,7 @@ func addLocation(name string, offset int) error {
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
 	enc := gob.NewEncoder(f)
 	err = enc.Encode(locs)
@@ -53,6 +55,7 @@ func removeLocation(name string) error {
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
 	enc := gob.NewEncoder(f)
 	err = enc.Encode(locs)
