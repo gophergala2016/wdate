@@ -8,12 +8,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
 	"github.com/mitchellh/cli"
 )
 
-const timeFmt = "Mon, 2006-01-02 15:04:05 MST -0700"
+const defaultTimeFmt = "Mon, 2006-01-02 15:04:05 MST -0700"
 
 func main() {
 	err := loadDB()
@@ -23,12 +22,7 @@ func main() {
 	}
 
 	if len(os.Args) == 1 {
-		now := time.Now()
-		fmt.Println(now.Format(timeFmt))
-		for name, offset := range locs {
-			loc := time.FixedZone(name, offset)
-			fmt.Println(now.In(loc).Format(timeFmt))
-		}
+		printTimes(defaultTimeFmt)
 		os.Exit(0)
 	}
 
@@ -41,6 +35,10 @@ func main() {
 		},
 		"remove": func() (cli.Command, error) {
 			var cmd removeCmd
+			return cmd, nil
+		},
+		"fmt": func() (cli.Command, error) {
+			var cmd fmtCmd
 			return cmd, nil
 		},
 	}
