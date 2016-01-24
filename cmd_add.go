@@ -7,8 +7,6 @@ package main
 import (
 	"errors"
 	"log"
-
-	"github.com/mitchellh/cli"
 )
 
 var errInvalidOffset = errors.New("Invalid time offset format")
@@ -43,9 +41,4 @@ func (f addCmd) Run(args []string) int {
 	}
 
 	return 0
-}
-
-var addCommandFactory = func() (cli.Command, error) {
-	var cmd addCmd
-	return cmd, nil
 }

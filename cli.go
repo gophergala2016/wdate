@@ -15,8 +15,6 @@ import (
 
 const timeFmt = "Mon, 2006-01-02 15:04:05 MST -0700"
 
-var flagUTC bool
-
 func main() {
 	err := loadDB()
 	if err != nil {
@@ -37,8 +35,14 @@ func main() {
 	c := cli.NewCLI("wdate", "1.0")
 	c.Args = os.Args[1:]
 	c.Commands = map[string]cli.CommandFactory{
-		"add":    addCommandFactory,
-		"remove": removeCommandFactory,
+		"add": func() (cli.Command, error) {
+			var cmd addCmd
+			return cmd, nil
+		},
+		"remove": func() (cli.Command, error) {
+			var cmd removeCmd
+			return cmd, nil
+		},
 	}
 
 	exitStatus, err := c.Run()

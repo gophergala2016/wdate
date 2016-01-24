@@ -45,7 +45,6 @@ func addLocation(name string, offset int) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -62,7 +61,6 @@ func removeLocation(name string) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 

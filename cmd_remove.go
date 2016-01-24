@@ -4,11 +4,7 @@
 
 package main
 
-import (
-	"log"
-
-	"github.com/mitchellh/cli"
-)
+import "log"
 
 type removeCmd struct{}
 
@@ -32,9 +28,4 @@ func (f removeCmd) Run(args []string) int {
 		return -1
 	}
 	return 0
-}
-
-var removeCommandFactory = func() (cli.Command, error) {
-	var cmd removeCmd
-	return cmd, nil
 }
